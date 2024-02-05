@@ -10,7 +10,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Link from "next/link";
 import Image from "next/legacy/image";
-import { Product } from "../../models";
+import { ProductService } from "../services/product.service";
 
 // Mock
 // const products: Product[] = [
@@ -40,13 +40,8 @@ import { Product } from "../../models";
 //   },
 // ];
 
-async function getProducts(): Promise<Product[]> {
-  const response = await fetch(`http://localhost:8080/product`);
-  return response.json();
-}
-
 async function ListProductsPage() {
-  const products = await getProducts();
+  const products = await new ProductService().getProducts();
 
   return (
     <Grid2 container spacing={2}>
