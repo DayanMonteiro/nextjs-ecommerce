@@ -11,6 +11,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Link from "next/link";
 import Image from "next/legacy/image";
 import { ProductService } from "../services/product.service";
+import { Product } from "@/models";
 
 // Mock
 // const products: Product[] = [
@@ -40,8 +41,47 @@ import { ProductService } from "../services/product.service";
 //   },
 // ];
 
-async function ListProductsPage() {
-  const products = await new ProductService().getProducts();
+async function getProducts({
+  search,
+  category_id,
+}: {
+  search?: string;
+  category_id?: string;
+}): Promise<Product[]> {
+  const urlSearchParams = new URLSearchParams();
+
+  if (search) {
+    urlSearchParams.append("search", search);
+  }
+
+  if (category_id) {
+    urlSearchParams.append("category_id", category_id);
+  }
+
+  let url = `${process.env.NEXT_API_URL}/products`;
+
+  if (urlSearchParams.toString()) {
+    url += `?${urlSearchParams.toString()}`;
+  }
+
+  const response = await fetch(url, {
+    next: {
+      revalidate: 1,
+    },
+  });
+
+  return response.json();
+}
+
+async function ListProductsPage({
+  searchParams,
+}: {
+  searchParams: { search?: string; category_id?: string };
+}) {
+  const products = await getProducts({
+    search: searchParams.search,
+    category_id: searchParams.category_id,
+  });
 
   return (
     <Grid2 container spacing={2}>
