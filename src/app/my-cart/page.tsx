@@ -17,6 +17,7 @@ import { Total } from "../../components/Total";
 import React from "react";
 import { CartServiceFactory } from "../services/cart.service";
 import { ProductService } from "../services/product.service";
+import { removeItemFromCartAction } from "@/server-actions/cart.action";
 
 // Mock
 // const products = [
@@ -107,7 +108,7 @@ async function MyCartPage() {
                   <ListItem
                     sx={{ display: "flex", justifyContent: "end", p: 0 }}
                   >
-                    <form>
+                    <form action={removeItemFromCartAction}>
                       <input type="hidden" name="index" value={index} />
                       <Button
                         color="error"

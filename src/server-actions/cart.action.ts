@@ -44,4 +44,8 @@ export async function addToCartAction(formData: FormData) {
   //   cookieStore.set("cart", JSON.stringify(cart));
 }
 
-//mutations
+export async function removeItemFromCartAction(formData: FormData) {
+  const cartService = CartServiceFactory.create();
+  const index = parseInt(formData.get("index") as string);
+  cartService.removeItemFromCart(index);
+}
