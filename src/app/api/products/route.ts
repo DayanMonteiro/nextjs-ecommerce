@@ -12,3 +12,4 @@ export async function GET(request: NextRequest) {
 
 //cache do fetch para a api do go (catalogo)
 //cache do fetch para a propria api
+// server action
