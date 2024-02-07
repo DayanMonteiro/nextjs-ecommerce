@@ -11,47 +11,52 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import CheckIcon from "@mui/icons-material/Check";
 import { Total } from "@/components/Total";
 import { Order, OrderStatus } from "@/models";
+import { OrderServiceFactory } from "@/app/services/order.service";
 
-const order: Order = {
-  id: "1",
-  items: [
-    {
-      id: 0,
-      product: {
-        id: "1",
-        name: "Nome do Produto",
-        description: "Descrição do Produto",
-        price: 100,
-        image_url: "https://source.unsplash.com/random?product",
-        category_id: "1",
-      },
-      quantity: 2,
-      price: 100,
-    },
-    {
-      id: 1,
-      product: {
-        id: "1",
-        name: "Nome do Produto",
-        description: "Descrição do Produto",
-        price: 100,
-        image_url: "https://source.unsplash.com/random?product",
-        category_id: "1",
-      },
-      quantity: 2,
-      price: 100,
-    },
-  ],
-  total: 1000,
-  status: OrderStatus.PENDING,
-  created_at: "2024-02-02T00:00:00.000Z",
-};
+// Mock
+// const order: Order = {
+//   id: "1",
+//   items: [
+//     {
+//       id: 0,
+//       product: {
+//         id: "1",
+//         name: "Nome do Produto",
+//         description: "Descrição do Produto",
+//         price: 100,
+//         image_url: "https://source.unsplash.com/random?product",
+//         category_id: "1",
+//       },
+//       quantity: 2,
+//       price: 100,
+//     },
+//     {
+//       id: 1,
+//       product: {
+//         id: "1",
+//         name: "Nome do Produto",
+//         description: "Descrição do Produto",
+//         price: 100,
+//         image_url: "https://source.unsplash.com/random?product",
+//         category_id: "1",
+//       },
+//       quantity: 2,
+//       price: 100,
+//     },
+//   ],
+//   total: 1000,
+//   status: OrderStatus.PENDING,
+//   created_at: "2024-02-02T00:00:00.000Z",
+// };
 
 async function CheckoutSuccessPage({
   params,
 }: {
   params: { orderId: string };
 }) {
+  const orderService = OrderServiceFactory.create();
+  const order = await orderService.getOrder(params.orderId);
+
   return (
     <Box>
       <Grid2 container spacing={2}>
