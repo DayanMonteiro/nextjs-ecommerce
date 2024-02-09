@@ -43,7 +43,7 @@ export class ProductService {
           revalidate: 1,
         },
       }
-    ); //revalidate on demand
+    );
     return response.json();
   }
 

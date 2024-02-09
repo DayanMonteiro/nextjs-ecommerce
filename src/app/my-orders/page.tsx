@@ -10,45 +10,48 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { OrderStatus } from "../../models";
+import { OrderServiceFactory } from "../services/order.service";
 
-const orders = [
-  {
-    id: "1",
-    status: OrderStatus.PENDING,
-    created_at: "2024-02-02T00:00:00.000Z",
-    items: [
-      {
-        id: 1,
-        product: {
-          id: "1",
-          name: "Nome do Produto",
-          description: "Descrição do Produto",
-          price: 100,
-          image_url: "https://source.unsplash.com/random?product",
-          category_id: "1",
-        },
-        quantity: 2,
-        price: 100,
-      },
-      {
-        id: 2,
-        product: {
-          id: "1",
-          name: "Nome do Produto",
-          description: "Descrição do Produto",
-          price: 100,
-          image_url: "https://source.unsplash.com/random?product",
-          category_id: "1",
-        },
-        quantity: 2,
-        price: 100,
-      },
-    ],
-    total: 1000,
-  },
-];
+// Mock
+// const orders = [
+//   {
+//     id: "1",
+//     status: OrderStatus.PENDING,
+//     created_at: "2024-02-02T00:00:00.000Z",
+//     items: [
+//       {
+//         id: 1,
+//         product: {
+//           id: "1",
+//           name: "Nome do Produto",
+//           description: "Descrição do Produto",
+//           price: 100,
+//           image_url: "https://source.unsplash.com/random?product",
+//           category_id: "1",
+//         },
+//         quantity: 2,
+//         price: 100,
+//       },
+//       {
+//         id: 2,
+//         product: {
+//           id: "1",
+//           name: "Nome do Produto",
+//           description: "Descrição do Produto",
+//           price: 100,
+//           image_url: "https://source.unsplash.com/random?product",
+//           category_id: "1",
+//         },
+//         quantity: 2,
+//         price: 100,
+//       },
+//     ],
+//     total: 1000,
+//   },
+// ];
 
-export async function MyOrdersListPage() {
+async function MyOrdersListPage() {
+  const orders = await OrderServiceFactory.create().getOrders();
   return (
     <Box>
       <Typography variant="h4">Meus pedidos</Typography>

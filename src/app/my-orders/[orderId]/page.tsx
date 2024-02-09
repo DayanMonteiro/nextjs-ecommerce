@@ -10,43 +10,47 @@ import {
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { OrderStatus } from "../../../models";
 import { Total } from "../../../components/Total";
+import { OrderServiceFactory } from "@/app/services/order.service";
 
-const order = {
-  id: "1",
-  status: OrderStatus.PENDING,
-  created_at: "2024-02-02T00:00:00.000Z",
-  items: [
-    {
-      id: 1,
-      product: {
-        id: "1",
-        name: "Nome do Produto",
-        description: "Descrição do Produto",
-        price: 100,
-        image_url: "https://source.unsplash.com/random?product",
-        category_id: "1",
-      },
-      quantity: 2,
-      price: 100,
-    },
-    {
-      id: 2,
-      product: {
-        id: "1",
-        name: "Nome do Produto",
-        description: "Descrição do Produto",
-        price: 100,
-        image_url: "https://source.unsplash.com/random?product",
-        category_id: "1",
-      },
-      quantity: 2,
-      price: 100,
-    },
-  ],
-  total: 1000,
-};
+// Mock
+// const order = {
+//   id: "1",
+//   status: OrderStatus.PENDING,
+//   created_at: "2024-02-02T00:00:00.000Z",
+//   items: [
+//     {
+//       id: 1,
+//       product: {
+//         id: "1",
+//         name: "Nome do Produto",
+//         description: "Descrição do Produto",
+//         price: 100,
+//         image_url: "https://source.unsplash.com/random?product",
+//         category_id: "1",
+//       },
+//       quantity: 2,
+//       price: 100,
+//     },
+//     {
+//       id: 2,
+//       product: {
+//         id: "1",
+//         name: "Nome do Produto",
+//         description: "Descrição do Produto",
+//         price: 100,
+//         image_url: "https://source.unsplash.com/random?product",
+//         category_id: "1",
+//       },
+//       quantity: 2,
+//       price: 100,
+//     },
+//   ],
+//   total: 1000,
+// };
 
 async function MyOrderDetail({ params }: { params: { orderId: string } }) {
+  const order = await OrderServiceFactory.create().getOrder(params.orderId);
+
   return (
     <Box>
       <Grid2 container spacing={2}>
